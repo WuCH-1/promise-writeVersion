@@ -1,0 +1,7 @@
+{
+    "powermode.enabled": true, //启动效果
+     //效果样式  “水花-particles”, “烟花-fireworks”, “火焰-flames”, “雪花-magic”, “幽灵-clippy”, “激光-simple-rift”, “大激光-exploding-rift”
+    "powermode.presets": "particles", // flames 火花效果
+    "powermode.shake.enabled": false,
+    "powermode.enableShake":true //  关闭代码抖动
+}
