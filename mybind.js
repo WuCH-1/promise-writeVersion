@@ -50,7 +50,7 @@ function myCreate(parent) {
 }
 
 function shollowClone(target) {
-    if (typeof target === 'object' && target !== 'null') {
+    if (typeof target === 'object' && target !== null) {
         var cloneTarget = Array.isArray(target) ? [] : {}
         for (let prop in target) {
             if (target.hasOwnProperty(prop)) {
@@ -58,21 +58,24 @@ function shollowClone(target) {
             }
         }
         return cloneTarget
-    } else {
-        return target
     }
+    return target
 }
 
-a = 1, b = 1
-obj = { a: 5 }
-function app(b) {
-    return this.a + b
+function deepClone(target) {
+    if (typeof target === 'object' && target !== null) {
+        var cloneTarget = Array.isArray(target) ? [] : {}
+        for (let prop in target) {
+            if (typeof target[prop] === 'object' && target[prop] !== null) {
+                cloneTarget[prop] = deepClone(target[prop])
+            }else{
+                cloneTarget[prop] = target[prop];
+            }
+        }
+        return cloneTarget
+    }
+    return target
 }
-app2 = app.mybind(obj)
+obj={b:{a:1,c:2},d:'obj'}
 
-var Fun = function (a, b) {
-    this.a = a
-    this.b = b
-    return 1
-}
-console.log(myCreate(obj).a)
+console.log(deepClone(obj))
