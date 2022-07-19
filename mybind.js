@@ -49,6 +49,20 @@ function myCreate(parent){
     return result
 }
 
+function shollowClone(target){
+    if(typeof target ==='object'&&typeof target !=='null'){
+        var cloneTarget = Array.isArray(target)? []:{}
+        for(let prop in target){
+            if (target.hasOwnProperty(prop)) {
+                cloneTarget[prop] = target[prop];
+            }
+        }
+        return cloned
+    }else{
+        return target
+    }
+}
+
 a = 1, b = 1
 obj = { a: 5 }
 function app(b) {
