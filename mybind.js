@@ -42,6 +42,13 @@ function myNew(Fn,...args) {
     return res instanceof Object?res:obj
 }
 
+function myCreate(parent){
+    function Fn(){}
+    Fn.prototype = parent
+    var result = new Fn()
+    return result
+}
+
 a = 1, b = 1
 obj = { a: 5 }
 function app(b) {
@@ -54,4 +61,4 @@ var Fun = function(a,b){
     this.b = b
     return 1
 }
-console.log(myNew(Fun,1,2))
+console.log(myCreate(obj).a)
