@@ -68,7 +68,7 @@ function deepClone(target) {
         for (let prop in target) {
             if (typeof target[prop] === 'object' && target[prop] !== null) {
                 cloneTarget[prop] = deepClone(target[prop])
-            }else{
+            } else {
                 cloneTarget[prop] = target[prop];
             }
         }
@@ -76,6 +76,43 @@ function deepClone(target) {
     }
     return target
 }
-obj={b:{a:1,c:2},d:'obj'}
 
-console.log(deepClone(obj))
+
+
+function debounce(handle, delay) {
+    let timer = null
+    return function () {
+        const context = this, args = arguments
+        if (timer) {
+            clearTimeout(timer)
+            timer = null
+        }
+        timer = setTimeout(() => { handle.call(context, ...args) }, delay)
+    }
+}
+
+function throtter(handle, delay) {
+    let flag = true
+    return function () {
+        const context = this
+        if (!flag) {
+            return
+        }
+        flag = !flag
+        setTimeout(() => { flag = !flag }, delay)
+        handle.call(context, ...arguments)
+    }
+}
+
+var fn = function (a) {
+    console.log(a)
+}
+function debounce(fun) {
+    return function () {
+        setTimeout(() => { fun.apply(this, arguments) }, 1000)
+    }
+}
+
+var fn1 = debounce(fn)
+
+fn1(2)
