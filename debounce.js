@@ -16,7 +16,7 @@ function throttle(fun, delay) {
 			return
 		}
 		time = setTimeout(() => {
-			fun.apply(this, ...arg); now = delay
+			fun.apply(this, ...arg);
 		}, delay)
 	}
 }

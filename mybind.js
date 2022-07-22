@@ -104,15 +104,24 @@ function throtter(handle, delay) {
     }
 }
 
-var fn = function (a) {
-    console.log(a)
-}
 function debounce(fun) {
     return function () {
         setTimeout(() => { fun.apply(this, arguments) }, 1000)
     }
 }
 
-var fn1 = debounce(fn)
+function myInstanceof(left,right){
+    const rightPrototype = right.prototype
+    let leftPrototype = left.__proto__
+    while(true){
+        if(leftPrototype === null) {
+            return false
+        }
+        if(leftPrototype === rightPrototype) {
+            return true
+        }
+        leftPrototype = leftPrototype.__proto__
+    }
+}
 
-fn1(2)
+console.log(myInstanceof([],Number))
