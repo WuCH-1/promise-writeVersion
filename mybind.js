@@ -110,18 +110,53 @@ function debounce(fun) {
     }
 }
 
-function myInstanceof(left,right){
+function myInstanceof(left, right) {
     const rightPrototype = right.prototype
     let leftPrototype = left.__proto__
-    while(true){
-        if(leftPrototype === null) {
+    while (true) {
+        if (leftPrototype === null) {
             return false
         }
-        if(leftPrototype === rightPrototype) {
+        if (leftPrototype === rightPrototype) {
             return true
         }
         leftPrototype = leftPrototype.__proto__
     }
 }
 
-console.log(myInstanceof([],Number))
+class EventEmitter {
+    constructor() {
+        this.message = {}
+    }
+    on(name, callback) {
+        if (!this.message[name]) {
+            this.message[name] = [callback]
+        } else {
+            this.message[name].push(callback)
+        }
+    }
+    emit(name, ...arg) {
+        if (!this.message[name]) {
+            return
+        }
+        this.message[name].forEach((item) => {
+            item.apply(this, arg)
+        })
+    }
+
+    off(type, fn) {
+        if (!this.message[type]) return
+        if (!fn) this.message[type] = []
+        for (let i = this.message[type].length - 1; i >= 0; i--) {
+            this.message[type][i] == fn && this.message[type].splice(i, 1)
+        }
+    }
+    once(type, fn) {
+        let callback = (...args) => {
+            fn.apply(this, args)
+            this.off(type, callback)
+        }
+        this.on(type, callback)
+    }
+}
+
